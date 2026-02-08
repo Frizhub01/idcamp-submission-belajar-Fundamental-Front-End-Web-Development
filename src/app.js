@@ -2,6 +2,7 @@ import './components/side-bar.js';
 import './components/note-input.js';
 import './components/note-list.js';
 import NotesApi from './data/api.js';
+import './styles/style.css';
 
 document.addEventListener("DOMContentLoaded", () => {
   const allList = document.querySelector("#allNotesList");

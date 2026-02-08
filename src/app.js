@@ -7,117 +7,152 @@ import NotesApi from "./data/api.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const allList = document.querySelector("#allNotesList");
-  const views = document.querySelectorAll(".view-section");
+  const sectionTitle = document.querySelector(".section-title");
+  
+  // State untuk melacak kita sedang di mode apa ("active" atau "archived")
+  let currentViewMode = "active"; 
 
-  // --- FUNGSI LOADING BARU (MENGGUNAKAN SWEETALERT2) ---
+  // --- FUNGSI LOADING & FEEDBACK ---
   const showLoading = () => {
     Swal.fire({
       title: 'Mohon Tunggu...',
-      html: 'Sedang memproses data',
       allowOutsideClick: false,
       showConfirmButton: false,
-      willOpen: () => {
-        Swal.showLoading(); // Menampilkan spinner bawaan SweetAlert
-      },
+      willOpen: () => Swal.showLoading(),
     });
   };
 
-  const hideLoading = () => {
-    Swal.close();
-  };
+  const hideLoading = () => Swal.close();
 
-  // --- FUNGSI FEEDBACK (OPSIONAL 2) ---
-  const showSuccess = (message) => {
-    Swal.fire({
-      icon: 'success',
-      title: 'Berhasil!',
-      text: message,
-      showConfirmButton: false,
-      timer: 1500
-    });
-  };
+  const showSuccess = (msg) => Swal.fire({ icon: 'success', title: 'Berhasil!', text: msg, showConfirmButton: false, timer: 1500 });
+  const showError = (msg) => Swal.fire({ icon: 'error', title: 'Gagal!', text: msg });
 
-  const showError = (message) => {
-    Swal.fire({
-      icon: 'error',
-      title: 'Gagal!',
-      text: message,
-    });
-  };
-
+  // --- FUNGSI RENDER UTAMA ---
   const renderApp = () => {
     showLoading();
-    NotesApi.getNotes()
+    
+    // Tentukan mau ambil data yang mana berdasarkan state
+    const apiCall = (currentViewMode === "archived") 
+      ? NotesApi.getArchivedNotes() 
+      : NotesApi.getNotes();
+
+    apiCall
       .then((notes) => {
+        // Reset HTML list biar bersih
+        allList.innerHTML = "";
+        
+        // Sorting berdasarkan tanggal terbaru
         const sorted = notes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        allList.notes = sorted;
+        
+        // Kirim data ke komponen note-list
+        allList.notes = sorted; 
+
+        // Update Judul Halaman biar user tau lagi di mana
+        if (sectionTitle) {
+          sectionTitle.innerText = (currentViewMode === "archived") 
+            ? "📂 Catatan Arsip" 
+            : "📝 Daftar Catatan";
+        }
+        
         hideLoading();
       })
       .catch((error) => {
-        alert(`Gagal mengambil data: ${error.message}`);
+        hideLoading();
+        showError(error.message);
       });
   };
 
+  // Render awal (default: catatan aktif)
   renderApp();
 
-  // --- EVENT LISTENER: NAVIGASI---
+  // --- EVENT LISTENER: NAVIGASI DARI SIDEBAR ---
   document.addEventListener("navigate", (event) => {
-    const targetId = event.detail;
-    views.forEach((view) => {
-      if (view.id === targetId) {
-        view.classList.remove("hidden");
-      } else {
-        view.classList.add("hidden");
-      }
-    });
+    const targetView = event.detail;
+
+    // Ambil elemen section
+    const notesListSection = document.querySelector("#notes-list");
+    const addNoteSection = document.querySelector("#add-note");
+
+    // Logika Navigasi
+    if (targetView === "notes-list") {
+      currentViewMode = "active";
+      notesListSection.classList.remove("hidden");
+      addNoteSection.classList.add("hidden");
+      renderApp(); 
+    } 
+    else if (targetView === "archived-list") {
+      currentViewMode = "archived";
+      notesListSection.classList.remove("hidden"); // Tetap pakai section list
+      addNoteSection.classList.add("hidden");
+      renderApp();
+    } 
+    else if (targetView === "add-note") {
+      notesListSection.classList.add("hidden");
+      addNoteSection.classList.remove("hidden");
+    }
   });
 
   // --- EVENT LISTENER: TAMBAH CATATAN ---
   document.addEventListener("note-submitted", (event) => {
-    // note-input.js mengirim object lengkap, tapi API hanya butuh {title, body}
     const { title, body } = event.detail;
-    const newNote = { title, body };
-
     showLoading();
-    NotesApi.createNote(newNote)
+    NotesApi.createNote({ title, body })
       .then(() => {
         showSuccess("Catatan Berhasil disimpan!");
-        renderApp();
+        
+        // Paksa pindah ke tab "Semua Catatan" setelah nambah
         const sideBar = document.querySelector("side-bar");
-        const notesLink = sideBar.querySelector('[data-target="notes-list"]');
-        if (notesLink) notesLink.click();
+        const notesLink = sideBar.shadowRoot 
+          ? sideBar.shadowRoot.querySelector('[data-view="notes-list"]') // Jika pakai shadowDOM
+          : sideBar.querySelector('[data-view="notes-list"]'); // Jika tidak
+        
+        if(notesLink) notesLink.click();
+        else renderApp(); // Fallback jika link tidak ketemu
       })
-      .catch((error) => {
-        showError(error.message);
-      });
+      .catch((error) => showError(error.message));
   });
 
-  // === EVENT LISTENER: HAPUS CATATAN ===
+  // --- EVENT LISTENER: HAPUS ---
   document.addEventListener("delete-note", (event) => {
-    const noteId = event.detail.id;
-
-    // Konfirmasi sebelum hapus (Fitur tambahan SweetAlert)
     Swal.fire({
       title: 'Hapus Catatan?',
       text: "Anda tidak bisa mengembalikannya lagi!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
       confirmButtonText: 'Ya, Hapus!',
       cancelButtonText: 'Batal'
     }).then((result) => {
       if (result.isConfirmed) {
         showLoading();
-        NotesApi.deleteNote(noteId)
+        NotesApi.deleteNote(event.detail.id)
           .then(() => {
             showSuccess("Catatan berhasil dihapus!");
-            renderApp();
+            renderApp(); 
           })
-          .catch((error) => {
-            showError(error.message);
-          });
+          .catch((error) => showError(error.message));
       }
     });
+  });
+
+  // --- EVENT LISTENER: ARSIPKAN ---
+  document.addEventListener("archive-note", (event) => {
+    showLoading();
+    NotesApi.archiveNote(event.detail.id)
+      .then(() => {
+        showSuccess("Catatan berhasil diarsipkan!");
+        renderApp(); 
+      })
+      .catch((error) => showError(error.message));
+  });
+
+  // --- EVENT LISTENER: AKTIFKAN KEMBALI (UNARCHIVE) ---
+  document.addEventListener("unarchive-note", (event) => {
+    showLoading();
+    NotesApi.unarchiveNote(event.detail.id)
+      .then(() => {
+        showSuccess("Catatan dikembalikan ke aktif!");
+        renderApp();
+      })
+      .catch((error) => showError(error.message));
   });
 });

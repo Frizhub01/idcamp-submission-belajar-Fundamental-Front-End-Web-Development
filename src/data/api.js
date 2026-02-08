@@ -1,9 +1,27 @@
-// src/data/api.js
 const BASE_URL = 'https://notes-api.dicoding.dev/v2';
 
 class NotesApi {
   static getNotes() {
     return fetch(`${BASE_URL}/notes`)
+      .then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          return Promise.reject(new Error(`Error: ${response.statusText}`));
+        }
+      })
+      .then((responseJson) => {
+        const { data } = responseJson;
+        return Promise.resolve(data);
+      })
+      .catch((error) => {
+        return Promise.reject(error);
+      });
+  }
+
+  // --- FITUR BARU: AMBIL ARSIP ---
+  static getArchivedNotes() {
+    return fetch(`${BASE_URL}/notes/archived`)
       .then((response) => {
         if (response.status >= 200 && response.status <= 299) {
           return response.json();
@@ -40,6 +58,46 @@ class NotesApi {
           return Promise.reject(new Error(responseJson.message));
         }
         return responseJson.data;
+      })
+      .catch((error) => {
+        return Promise.reject(error);
+      });
+  }
+
+  // --- FITUR BARU: ARSIPKAN ---
+  static archiveNote(id) {
+    return fetch(`${BASE_URL}/notes/${id}/archive`, {
+      method: 'POST',
+    })
+      .then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          return Promise.reject(new Error(`Error: ${response.statusText}`));
+        }
+      })
+      .then((responseJson) => {
+        return responseJson.message;
+      })
+      .catch((error) => {
+        return Promise.reject(error);
+      });
+  }
+
+  // --- FITUR BARU: BATAL ARSIP ---
+  static unarchiveNote(id) {
+    return fetch(`${BASE_URL}/notes/${id}/unarchive`, {
+      method: 'POST',
+    })
+      .then((response) => {
+        if (response.status >= 200 && response.status <= 299) {
+          return response.json();
+        } else {
+          return Promise.reject(new Error(`Error: ${response.statusText}`));
+        }
+      })
+      .then((responseJson) => {
+        return responseJson.message;
       })
       .catch((error) => {
         return Promise.reject(error);

@@ -1,11 +1,11 @@
 class NoteItem extends HTMLElement {
   constructor() {
     super();
-    this._note = { title: "", body: "", createdAt: "" };
+    this._note = { id: "", title: "", body: "", createdAt: "" };
   }
 
   static get observedAttributes() {
-    return ["title", "body", "created-at"];
+    return ["id", "title", "-body", "createdAt"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -36,12 +36,30 @@ class NoteItem extends HTMLElement {
     const displayDate = this.formatDate(this.getAttribute('created-at') || this._note.createdAt);
     const title = this.getAttribute('title') || this._note.title;
     const body = this.getAttribute('body') || this._note.body;
+    const id = this.getAttribute('id') || this._note.id;
 
     this.innerHTML = `
-      <h3>${title}</h3>
-      <p>${body}</p>
-      <small>📅 ${displayDate}</small>
+      <div class="note-info">
+        <h3>${title}</h3>
+        <p>${body}</p>
+        <small>📅 ${displayDate}</small>
+      </div>
+      <div class="note-actions">
+        <button class="delete-btn" data-id="${id}">🗑️ Hapus</button>
+      </div>
     `;
+
+    // Event Listener untuk tombol hapus
+    const deleteBtn = this.querySelector(".delete-btn");
+    deleteBtn.addEventListener("click", () => {
+      // Konfirmasi sederhana (opsional, tapi disarankan UX-nya)
+      if(confirm("Apakah Anda yakin ingin menghapus catatan ini?")) {
+        this.dispatchEvent(new CustomEvent("delete-note", {
+            detail: { id: id },
+            bubbles: true
+        }));
+      }
+    });
   }
 }
 

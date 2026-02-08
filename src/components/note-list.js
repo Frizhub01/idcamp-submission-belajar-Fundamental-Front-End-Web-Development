@@ -17,6 +17,7 @@ class NoteList extends HTMLElement {
     this._notes.forEach(note => {
       const noteItemElement = document.createElement("note-item");
 
+      noteItemElement.setAttribute("id", note.id);
       noteItemElement.setAttribute("title", note.title);
       noteItemElement.setAttribute("body", note.body);
       noteItemElement.setAttribute("created-at", note.createdAt);

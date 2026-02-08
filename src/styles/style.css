@@ -239,3 +239,27 @@ note-item small {
     padding: 20px;
   }
 }
+
+/* --- DELETE BUTTON STYLE --- */
+.note-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-btn {
+  background-color: #e74c3c; /* Warna Merah */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  width: auto; /* Override width: 100% dari CSS sebelumnya */
+  margin-top: 0;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}

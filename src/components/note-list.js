@@ -1,4 +1,4 @@
-import "./note-item.js";
+import './note-item.js';
 
 class NoteList extends HTMLElement {
   set notes(notes) {
@@ -7,25 +7,26 @@ class NoteList extends HTMLElement {
   }
 
   render() {
-    this.innerHTML = "";
+    this.innerHTML = '';
 
     if (!this._notes || this._notes.length === 0) {
-      this.innerHTML = "<p style='color:#888; text-align: center;'>Tidak ada catatan.</p>";
+      this.innerHTML =
+        "<p style='color:#888; text-align: center;'>Tidak ada catatan.</p>";
       return;
     }
 
     this._notes.forEach((note) => {
-      const noteItemElement = document.createElement("note-item");
+      const noteItemElement = document.createElement('note-item');
 
-      noteItemElement.setAttribute("id", note.id);
-      noteItemElement.setAttribute("title", note.title);
-      noteItemElement.setAttribute("body", note.body);
-      noteItemElement.setAttribute("created-at", note.createdAt);
-      noteItemElement.setAttribute("archived", note.archived);
+      noteItemElement.setAttribute('id', note.id);
+      noteItemElement.setAttribute('title', note.title);
+      noteItemElement.setAttribute('body', note.body);
+      noteItemElement.setAttribute('created-at', note.createdAt);
+      noteItemElement.setAttribute('archived', note.archived);
 
       this.appendChild(noteItemElement);
     });
   }
 }
 
-customElements.define("note-list", NoteList);
+customElements.define('note-list', NoteList);

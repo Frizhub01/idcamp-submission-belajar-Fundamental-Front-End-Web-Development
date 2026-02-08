@@ -15,7 +15,7 @@
 }
 
 body {
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   background-color: var(--bg-color);
   color: #333;
   height: 100vh;

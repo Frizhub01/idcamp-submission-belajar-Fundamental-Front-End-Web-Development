@@ -12,7 +12,7 @@ class SideBar extends HTMLElement {
           <ul>
             <li>
               <a href="#" class="nav-link active" data-view="notes-list">
-                📝 Semua Catatan
+                📝 Daftar Catatan
               </a>
             </li>
             <li>
@@ -32,18 +32,18 @@ class SideBar extends HTMLElement {
   }
 
   addEventListeners() {
-    const links = this.querySelectorAll(".nav-link");
+    const links = this.querySelectorAll('.nav-link');
     links.forEach((link) => {
-      link.addEventListener("click", (e) => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
 
-        links.forEach((l) => l.classList.remove("active"));
-        link.classList.add("active");
+        links.forEach((l) => l.classList.remove('active'));
+        link.classList.add('active');
 
-        const viewName = link.getAttribute("data-view");
+        const viewName = link.getAttribute('data-view');
 
         this.dispatchEvent(
-          new CustomEvent("navigate", {
+          new CustomEvent('navigate', {
             detail: viewName,
             bubbles: true,
           }),
@@ -53,4 +53,4 @@ class SideBar extends HTMLElement {
   }
 }
 
-customElements.define("side-bar", SideBar);
+customElements.define('side-bar', SideBar);

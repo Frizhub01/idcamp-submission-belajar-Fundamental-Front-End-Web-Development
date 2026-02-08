@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App</title>
+    <link rel="stylesheet" href="src/styles/style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      
+      <side-bar></side-bar>
+
+      <main class="content-area">
+        
+        <section id="notes-list" class="view-section">
+          <h2 class="section-title">Daftar Semua Catatan</h2>
+          <note-list id="allNotesList"></note-list>
+        </section>
+
+        <section id="add-note" class="view-section hidden">
+          <h2 class="section-title">Buat Catatan Baru</h2>
+          <div class="form-wrapper">
+            <note-input></note-input>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

@@ -19,7 +19,6 @@ class NotesApi {
       });
   }
 
-  // --- FITUR BARU: AMBIL ARSIP ---
   static getArchivedNotes() {
     return fetch(`${BASE_URL}/notes/archived`)
       .then((response) => {
@@ -64,7 +63,6 @@ class NotesApi {
       });
   }
 
-  // --- FITUR BARU: ARSIPKAN ---
   static archiveNote(id) {
     return fetch(`${BASE_URL}/notes/${id}/archive`, {
       method: 'POST',
@@ -84,7 +82,6 @@ class NotesApi {
       });
   }
 
-  // --- FITUR BARU: BATAL ARSIP ---
   static unarchiveNote(id) {
     return fetch(`${BASE_URL}/notes/${id}/unarchive`, {
       method: 'POST',

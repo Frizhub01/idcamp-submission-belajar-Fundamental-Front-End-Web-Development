@@ -18,14 +18,13 @@
   content: '';
   position: absolute;
   left: 0;
-  bottom: 18px; /* Sesuaikan dengan layout Anda */
+  bottom: 18px;
   width: 0;
   height: 2px;
-  background-color: var(--primary-color, #d35400); /* Warna aksen */
+  background-color: var(--primary-color, #d35400);
   transition: width 0.3s ease-in-out;
 }
 
-/* Saat input di dalam .form-group sedang fokus, lebar garis menjadi 100% */
 .form-group:focus-within::after {
   width: 100%;
 }
@@ -39,8 +38,10 @@ textarea {
   border-radius: 8px;
   font-family: inherit;
   font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.1); /* Efek glow halus */
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.1);
 }
 
 input:focus,

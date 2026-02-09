@@ -9,7 +9,7 @@ class NoteList extends HTMLElement {
 
   connectedCallback() {
     autoAnimate(this);
-    
+
     this.render();
   }
 

@@ -1,9 +1,7 @@
-/* src/styles/layout/app-shell.css */
-
 .app-container {
   display: grid;
   grid-template-columns: 280px 1fr;
-  grid-template-rows: 1fr auto; /* Baris kedua otomatis menyesuaikan tinggi footer yang tipis */
+  grid-template-rows: 1fr auto;
   height: 100vh;
   overflow: hidden;
 }
@@ -13,7 +11,6 @@ side-bar {
   grid-row: 1;
   overflow-y: auto;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
-  /* Tambahkan z-index rendah agar shadow footer bisa menimpa di atasnya */
   z-index: 1;
   position: relative;
 }
@@ -31,12 +28,10 @@ main.content-area {
 footer-bar {
   grid-column: 1 / -1;
   grid-row: 2;
-  /* Z-index tinggi agar bayangannya "jatuh" ke atas sidebar & content */
   z-index: 50;
   position: relative;
 }
 
-/* Responsif */
 @media screen and (max-width: 768px) {
   .app-container {
     grid-template-columns: 1fr;

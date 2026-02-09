@@ -40,14 +40,14 @@ class SideBar extends HTMLElement {
     links.forEach((link) => {
       link.addEventListener('click', (event) => {
         event.preventDefault();
-        
+
         this.updateActiveState(link.dataset.view);
         this.dispatchEvent(
           new CustomEvent('navigate', {
             detail: link.dataset.view,
             bubbles: true,
             composed: true,
-          })
+          }),
         );
       });
     });

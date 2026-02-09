@@ -15,22 +15,20 @@ note-item {
   overflow: hidden;
   height: 100%;
 
-  /* --- PERUBAHAN DIMULAI DI SINI --- */
-  /* Menambahkan transisi agar efek naik terlihat halus */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  /* --- PERUBAHAN BERAKHIR DI SINI --- */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-/* --- EFEK HOVER DIAKTIFKAN --- */
 note-item:hover {
-  transform: translateY(-5px); /* Naik 5 pixel ke atas */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Menambah ketebalan bayangan */
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .note-info {
   display: flex;
   flex-direction: column;
-  flex: 1; 
+  flex: 1;
 }
 
 note-item h3 {
@@ -74,7 +72,7 @@ note-item small.date {
   display: flex;
   gap: 10px;
   justify-content: flex-end;
-  border-top: 1px solid #eee; 
+  border-top: 1px solid #eee;
   padding-top: 15px;
   margin-top: 0;
 }

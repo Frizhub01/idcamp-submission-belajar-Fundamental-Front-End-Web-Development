@@ -16,10 +16,10 @@ class NoteItem extends HTMLElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue === newValue) return;
-    
+
     this._note[name.replace('data-', '')] = newValue;
-    
-    if (this.isConnected) { 
+
+    if (this.isConnected) {
       this.render();
     }
   }

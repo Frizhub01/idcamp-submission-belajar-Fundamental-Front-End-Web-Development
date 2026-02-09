@@ -15,21 +15,21 @@ class NoteInput extends HTMLElement {
         { value: 10, duration: 100 },
         { value: -5, duration: 100 },
         { value: 5, duration: 100 },
-        { value: 0, duration: 100 }
+        { value: 0, duration: 100 },
       ],
-      easing: 'easeInOutQuad'
+      easing: 'easeInOutQuad',
     });
   }
 
   animateEntrance() {
     anime({
-      targets: this.querySelector('form'), // Targetkan form
-      opacity: [0, 1],         // Fade in
-      translateY: [50, 0],     // Slide dari bawah ke atas
-      scale: [0.95, 1],         // Sedikit membesar
-      duration: 800,           // Durasi (ms)
-      easing: 'easeOutElastic(1, .8)', // Efek membal yang halus
-      delay: 200               // Tunggu sebentar
+      targets: this.querySelector('form'),
+      opacity: [0, 1],
+      translateY: [50, 0],
+      scale: [0.95, 1],
+      duration: 800,
+      easing: 'easeOutElastic(1, .8)',
+      delay: 200,
     });
   }
 
@@ -66,10 +66,18 @@ class NoteInput extends HTMLElement {
       }
     };
 
-    title.addEventListener('input', () => customValidationHandler(title, titleError, 3));
-    title.addEventListener('blur', () => customValidationHandler(title, titleError, 3));
-    body.addEventListener('input', () => customValidationHandler(body, bodyError, 5));
-    body.addEventListener('blur', () => customValidationHandler(body, bodyError, 5));
+    title.addEventListener('input', () =>
+      customValidationHandler(title, titleError, 3),
+    );
+    title.addEventListener('blur', () =>
+      customValidationHandler(title, titleError, 3),
+    );
+    body.addEventListener('input', () =>
+      customValidationHandler(body, bodyError, 5),
+    );
+    body.addEventListener('blur', () =>
+      customValidationHandler(body, bodyError, 5),
+    );
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -87,7 +95,7 @@ class NoteInput extends HTMLElement {
           new CustomEvent('note-submitted', {
             detail: newNote,
             bubbles: true,
-            composed: true, 
+            composed: true,
           }),
         );
 
@@ -95,7 +103,7 @@ class NoteInput extends HTMLElement {
         titleError.innerText = '';
         bodyError.innerText = '';
       } else {
-        this.animateShake(); 
+        this.animateShake();
       }
     });
 
@@ -105,16 +113,16 @@ class NoteInput extends HTMLElement {
         targets: btn,
         scale: 0.95,
         duration: 100,
-        easing: 'easeOutQuad'
+        easing: 'easeOutQuad',
       });
     });
-    
+
     btn.addEventListener('mouseup', () => {
       anime({
         targets: btn,
         scale: 1,
         duration: 100,
-        easing: 'easeOutQuad'
+        easing: 'easeOutQuad',
       });
     });
   }

@@ -12,7 +12,6 @@ body {
   overflow: hidden;
 }
 
-/* Utility Classes */
 .hidden {
   display: none !important;
 }
@@ -25,21 +24,14 @@ body {
   margin-bottom: 10px;
 }
 
-/* --- STYLE JUDUL SECTION --- */
 .section-title {
   font-size: 1.5rem;
   font-weight: 700;
-  /* Warna teks (gunakan primary-dark atau primary-light sesuai selera) */
-  color: var(--primary-dark, #2d3436); 
-  
+  color: var(--primary-dark, #2d3436);
   margin-top: 0;
   margin-bottom: 24px;
-  
-  /* Garis bawah berwarna */
   padding-bottom: 10px;
   border-bottom: 2px solid var(--primary-light, #6c5ce7);
-  
-  /* Pastikan garis memanjang */
   width: 100%;
   display: block;
 }

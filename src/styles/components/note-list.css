@@ -1,0 +1,101 @@
+note-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+note-item {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  padding: 25px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  border-top: 5px solid var(--primary-light);
+  overflow: hidden;
+  height: 100%;
+}
+
+note-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.note-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+}
+
+note-item h3 {
+  margin-bottom: 12px;
+  color: var(--primary-dark);
+  font-size: 1.25rem;
+  line-height: 1.4;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+}
+
+note-item p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+}
+
+note-item small.date {
+  color: #999;
+  font-weight: 600;
+  display: block;
+  font-size: 0.8rem;
+  margin-top: auto;
+  margin-bottom: 15px;
+  text-align: right;
+}
+
+.note-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  border-top: 1px solid #eee; 
+  padding-top: 15px;
+  margin-top: 0;
+}
+
+.delete-btn,
+.archive-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: opacity 0.2s;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+}
+
+.archive-btn {
+  background-color: #f39c12;
+}
+
+.delete-btn:hover,
+.archive-btn:hover {
+  opacity: 0.9;
+}

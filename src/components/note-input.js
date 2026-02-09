@@ -37,19 +37,10 @@ class NoteInput extends HTMLElement {
       }
     };
 
-    title.addEventListener('input', () =>
-      customValidationHandler(title, titleError, 3),
-    );
-    title.addEventListener('blur', () =>
-      customValidationHandler(title, titleError, 3),
-    );
-
-    body.addEventListener('input', () =>
-      customValidationHandler(body, bodyError, 5),
-    );
-    body.addEventListener('blur', () =>
-      customValidationHandler(body, bodyError, 5),
-    );
+    title.addEventListener('input', () => customValidationHandler(title, titleError, 3));
+    title.addEventListener('blur', () => customValidationHandler(title, titleError, 3));
+    body.addEventListener('input', () => customValidationHandler(body, bodyError, 5));
+    body.addEventListener('blur', () => customValidationHandler(body, bodyError, 5));
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -59,17 +50,17 @@ class NoteInput extends HTMLElement {
 
       if (isTitleValid && isBodyValid) {
         const newNote = {
-          id: `notes-${Date.now()}`,
           title: title.value,
           body: body.value,
-          createdAt: new Date().toISOString(),
-          archived: false,
         };
+        
+        console.log("Mencoba mengirim event note-submitted:", newNote);
 
         this.dispatchEvent(
           new CustomEvent('note-submitted', {
             detail: newNote,
             bubbles: true,
+            composed: true, 
           }),
         );
 

@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: #333;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Utility Classes */
+.hidden {
+  display: none !important;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  display: block;
+  height: 20px;
+  margin-bottom: 10px;
+}

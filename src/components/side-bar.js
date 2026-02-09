@@ -6,50 +6,61 @@ class SideBar extends HTMLElement {
 
   render() {
     this.innerHTML = `
-      <aside class="sidebar">
-        <h1 class="brand">Notes App</h1>
-        <nav>
-          <ul>
-            <li>
-              <a href="#" class="nav-link active" data-view="notes-list">
-                📝 Daftar Catatan
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-view="archived-list">
-                📂 Arsip
-              </a>
-            </li>
-            <li>
-              <a href="#" class="nav-link" data-view="add-note">
-                ➕ Buat Baru
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+      <nav class="sidebar">
+        <h2>NOTES APP</h2>
+        <ul class="nav-links">
+          <li>
+            <a href="#" class="nav-link active" data-view="notes-list">
+              <span class="icon">📝</span>
+              <span class="label">Catatan</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="#" class="nav-link" data-view="archived-list">
+              <span class="icon">📂</span>
+              <span class="label">Arsip</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="#" class="nav-link" data-view="add-note">
+              <span class="icon">➕</span>
+              <span class="label">Tambah</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     `;
   }
 
   addEventListeners() {
     const links = this.querySelectorAll('.nav-link');
+
     links.forEach((link) => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        links.forEach((l) => l.classList.remove('active'));
-        link.classList.add('active');
-
-        const viewName = link.getAttribute('data-view');
-
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        
+        this.updateActiveState(link.dataset.view);
         this.dispatchEvent(
           new CustomEvent('navigate', {
-            detail: viewName,
+            detail: link.dataset.view,
             bubbles: true,
-          }),
+            composed: true,
+          })
         );
       });
     });
+  }
+
+  updateActiveState(targetView) {
+    const links = this.querySelectorAll('.nav-link');
+    links.forEach((link) => link.classList.remove('active'));
+
+    const targetLink = this.querySelector(`[data-view="${targetView}"]`);
+    if (targetLink) {
+      targetLink.classList.add('active');
+    }
   }
 }
 

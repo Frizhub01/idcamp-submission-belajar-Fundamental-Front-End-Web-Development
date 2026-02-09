@@ -1,0 +1,108 @@
+/* --- SIDEBAR UTAMA (DESKTOP) --- */
+side-bar {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  padding: 30px 20px;
+  border-right: 1px solid #dcdcdc;
+  height: 100%;
+}
+
+side-bar h2 {
+  color: var(--primary-dark);
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #555;
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid transparent;
+}
+
+.nav-link .icon {
+  font-size: 1.2rem;
+}
+
+.nav-link:hover {
+  background-color: var(--bg-color);
+  color: var(--primary-med);
+}
+
+.nav-link.active {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  box-shadow: 0 4px 10px rgba(9, 99, 126, 0.3);
+}
+
+/* --- RESPONSIVE MOBILE (TOMBOL SIMETRIS) --- */
+@media (max-width: 768px) {
+  side-bar {
+    padding: 10px 15px;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  side-bar h2 {
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    flex-direction: row; 
+    width: 100%;        
+    gap: 8px;            
+  }
+
+  .nav-links li {
+    flex: 1; 
+  }
+
+  .nav-link {
+    justify-content: center; 
+    padding: 10px 5px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    height: 100%; 
+  }
+
+  .nav-link .icon {
+    display: none;
+  }
+
+  .nav-link .label {
+    display: block;
+    font-size: 0.9rem; 
+  }
+  
+  .nav-link.active {
+    background-color: var(--primary-dark);
+    color: white;
+    border-color: var(--primary-dark);
+  }
+}

@@ -1,0 +1,9 @@
+:root {
+  --primary-dark: #09637e;
+  --primary-med: #088395;
+  --primary-light: #7ab2b2;
+  --bg-color: #ebf4f6;
+  --white: #ffffff;
+  --radius: 12px;
+  --shadow: 0 4px 12px rgba(9, 99, 126, 0.1);
+}

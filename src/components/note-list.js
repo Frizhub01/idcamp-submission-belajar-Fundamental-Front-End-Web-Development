@@ -1,8 +1,8 @@
 import './note-item.js';
 
 class NoteList extends HTMLElement {
-  set notes(notes) {
-    this._notes = notes;
+  set notes(value) {
+    this._notes = value;
     this.render();
   }
 

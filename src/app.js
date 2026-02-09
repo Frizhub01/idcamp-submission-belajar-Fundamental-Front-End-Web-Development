@@ -10,6 +10,7 @@ import './styles/components/note-list.css';
 import './components/side-bar.js';
 import './components/note-input.js';
 import './components/note-list.js';
+import './components/footer-bar.js';
 import Swal from 'sweetalert2';
 import NotesApi from './data/api.js';
 

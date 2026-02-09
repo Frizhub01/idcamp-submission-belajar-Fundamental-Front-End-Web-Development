@@ -8,7 +8,7 @@ side-bar {
   height: 100%;
 }
 
-side-bar h2 {
+side-bar h1 {
   color: var(--primary-dark);
   margin-bottom: 40px;
   text-align: center;
@@ -53,7 +53,7 @@ side-bar h2 {
   box-shadow: 0 4px 10px rgba(9, 99, 126, 0.3);
 }
 
-/* --- RESPONSIVE MOBILE (TOMBOL SIMETRIS) --- */
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
   side-bar {
     padding: 10px 15px;
@@ -73,22 +73,22 @@ side-bar h2 {
   }
 
   .nav-links {
-    flex-direction: row; 
-    width: 100%;        
-    gap: 8px;            
+    flex-direction: row;
+    width: 100%;
+    gap: 8px;
   }
 
   .nav-links li {
-    flex: 1; 
+    flex: 1;
   }
 
   .nav-link {
-    justify-content: center; 
+    justify-content: center;
     padding: 10px 5px;
     text-align: center;
     background-color: #f8f9fa;
     border: 1px solid #eee;
-    height: 100%; 
+    height: 100%;
   }
 
   .nav-link .icon {
@@ -97,9 +97,9 @@ side-bar h2 {
 
   .nav-link .label {
     display: block;
-    font-size: 0.9rem; 
+    font-size: 0.9rem;
   }
-  
+
   .nav-link.active {
     background-color: var(--primary-dark);
     color: white;

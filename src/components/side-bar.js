@@ -7,7 +7,7 @@ class SideBar extends HTMLElement {
   render() {
     this.innerHTML = `
       <nav class="sidebar">
-        <h2>NOTES APP</h2>
+        <h1>NOTES APP</h1>
         <ul class="nav-links">
           <li>
             <a href="#" class="nav-link active" data-view="notes-list">

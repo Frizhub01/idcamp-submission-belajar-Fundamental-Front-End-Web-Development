@@ -1,31 +1,61 @@
+/* src/styles/layout/app-shell.css */
+
 .app-container {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 1fr auto; /* Baris kedua otomatis menyesuaikan tinggi footer yang tipis */
   height: 100vh;
+  overflow: hidden;
 }
 
-.content-area {
-  padding: 40px;
+side-bar {
+  grid-column: 1;
+  grid-row: 1;
   overflow-y: auto;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  /* Tambahkan z-index rendah agar shadow footer bisa menimpa di atasnya */
+  z-index: 1;
   position: relative;
 }
 
-h2.section-title {
-  color: var(--primary-dark);
-  margin-bottom: 25px;
-  font-size: 1.8rem;
-  border-bottom: 3px solid var(--primary-light);
-  display: inline-block;
-  padding-bottom: 5px;
+main.content-area {
+  grid-column: 2;
+  grid-row: 1;
+  padding: 30px;
+  overflow-y: auto;
+  height: 100%;
+  background-color: #f8f9fa;
+  z-index: 1;
 }
 
-@media (max-width: 768px) {
+footer-bar {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  /* Z-index tinggi agar bayangannya "jatuh" ke atas sidebar & content */
+  z-index: 50;
+  position: relative;
+}
+
+/* Responsif */
+@media screen and (max-width: 768px) {
   .app-container {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
   }
-  
-  .content-area {
-    padding: 20px;
+
+  side-bar {
+    grid-column: 1;
+    grid-row: 1;
+    height: auto;
+  }
+
+  main.content-area {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  footer-bar {
+    grid-column: 1;
+    grid-row: 3;
   }
 }

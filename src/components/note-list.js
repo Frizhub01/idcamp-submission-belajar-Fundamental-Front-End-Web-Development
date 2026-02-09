@@ -1,8 +1,15 @@
 import './note-item.js';
+import autoAnimate from '@formkit/auto-animate';
 
 class NoteList extends HTMLElement {
   set notes(value) {
     this._notes = value;
+    this.render();
+  }
+
+  connectedCallback() {
+    autoAnimate(this);
+    
     this.render();
   }
 

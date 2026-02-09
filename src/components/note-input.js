@@ -1,7 +1,36 @@
+import anime from 'animejs/lib/anime.es.js';
+
 class NoteInput extends HTMLElement {
   connectedCallback() {
     this.render();
     this.addEventListeners();
+    this.animateEntrance();
+  }
+
+  animateShake() {
+    anime({
+      targets: this.querySelector('form'),
+      translateX: [
+        { value: -10, duration: 100 },
+        { value: 10, duration: 100 },
+        { value: -5, duration: 100 },
+        { value: 5, duration: 100 },
+        { value: 0, duration: 100 }
+      ],
+      easing: 'easeInOutQuad'
+    });
+  }
+
+  animateEntrance() {
+    anime({
+      targets: this.querySelector('form'), // Targetkan form
+      opacity: [0, 1],         // Fade in
+      translateY: [50, 0],     // Slide dari bawah ke atas
+      scale: [0.95, 1],         // Sedikit membesar
+      duration: 800,           // Durasi (ms)
+      easing: 'easeOutElastic(1, .8)', // Efek membal yang halus
+      delay: 200               // Tunggu sebentar
+    });
   }
 
   render() {
@@ -53,8 +82,6 @@ class NoteInput extends HTMLElement {
           title: title.value,
           body: body.value,
         };
-        
-        console.log("Mencoba mengirim event note-submitted:", newNote);
 
         this.dispatchEvent(
           new CustomEvent('note-submitted', {
@@ -67,7 +94,28 @@ class NoteInput extends HTMLElement {
         form.reset();
         titleError.innerText = '';
         bodyError.innerText = '';
+      } else {
+        this.animateShake(); 
       }
+    });
+
+    const btn = this.querySelector('button');
+    btn.addEventListener('mousedown', () => {
+      anime({
+        targets: btn,
+        scale: 0.95,
+        duration: 100,
+        easing: 'easeOutQuad'
+      });
+    });
+    
+    btn.addEventListener('mouseup', () => {
+      anime({
+        targets: btn,
+        scale: 1,
+        duration: 100,
+        easing: 'easeOutQuad'
+      });
     });
   }
 }
